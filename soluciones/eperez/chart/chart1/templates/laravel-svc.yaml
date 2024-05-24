@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: phpmyadmin
+  name: laravel-svc
   namespace: laravel
 spec:
-  selector:
-    app: phpmyadmin
-  ports:
-    - port: 80
   type: NodePort
+  selector:
+    app: laravel
+  ports:
+    - port: 8000

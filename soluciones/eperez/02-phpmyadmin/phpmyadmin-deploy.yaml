@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: phpmyadmin-deploy
-  namespace: phpmyadmin
+  namespace: laravel
 spec:
   selector:
     matchLabels:
@@ -40,4 +40,4 @@ spec:
           valueFrom:
             secretKeyRef:
               name: phpmyadmin-secret
-              key: password
+              key: database_password
