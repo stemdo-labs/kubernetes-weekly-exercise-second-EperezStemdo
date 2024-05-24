@@ -1,8 +1,20 @@
+# apiVersion: v1
+# kind: ConfigMap
+# metadata:
+#   name: mysql-configmap
+#   namespace: laravel
+# data:
+#   name: mariadb
+#   user: usuario
+
+
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: mysql-configmap
-  namespace: laravel
+  name: {{.Release.Name}}-mysql-configmap
+  namespace: {{.Values.namespace}}
 data:
-  name: mariadb
-  user: usuario
+  name: {{ .Values.name }}
+  user: {{ .Values.user }}
+
+

@@ -1,8 +1,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: laravel-deployment
-  namespace: laravel
+  name: {{.Release.Name}}-laravel-deployment
+  namespace: {{.Values.namespace}}
 spec:
   selector:
     matchLabels:
@@ -17,30 +17,30 @@ spec:
       - name: laravel
         ports:
         - containerPort: 8000
-        image: bitnami/laravel:11.0.8
+        image: bitnami/laravel:{{.Values.taglaravel}}
         env:
         - name: LARAVEL_DATABASE_HOST
           valueFrom:
             configMapKeyRef:
-              name: laravel-configmap
+              name: {{.Release.Name}}-laravel-configmap
               key: host
 
         - name: LARAVEL_DATABASE_PORT_NUMBER
           valueFrom:
             configMapKeyRef:
-              name: laravel-configmap
+              name: {{.Release.Name}}-laravel-configmap
               key: port
 
         - name: LARAVEL_DATABASE_USER
           valueFrom:
             configMapKeyRef:
-              name: laravel-configmap
+              name: {{.Release.Name}}-laravel-configmap
               key: user
 
         - name: LARAVEL_DATABASE_NAME
           valueFrom:
             configMapKeyRef:
-              name: laravel-configmap
+              name: {{.Release.Name}}-laravel-configmap
               key: name
 
         - name: LARAVEL_DATABASE_PASSWORD
@@ -49,14 +49,14 @@ spec:
               name: mysql-secret
               key: database_password
 
-        volumeMounts:
-          - mountPath: "/app"
-            name: pv-storage-laravel
+      #   volumeMounts:
+      #     - mountPath: "/app"
+      #       name: pv-storage-laravel
 
-      volumes:
-        - name: pv-storage-laravel
-          persistentVolumeClaim:
-            claimName: pv-claim-laravel      
+      # volumes:
+      #   - name: pv-storage-laravel
+      #     persistentVolumeClaim:
+      #       claimName: pv-claim-laravel      
 
         # livenessProbe:
         #   httpGet:

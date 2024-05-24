@@ -1,7 +1,8 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-   name: ingress-laravel
+   name: {{.Release.Name}}-ingress-laravel
+   namespace: {{.Values.namespace}}
    annotations:
      nginx.ingress.kubernetes.io/rewrite-target: /
 spec:

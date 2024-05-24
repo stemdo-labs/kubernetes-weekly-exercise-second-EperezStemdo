@@ -69,7 +69,7 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: mysql-deployment
+  name: {{.Release.Name}}-mysql-statefulset
   namespace: laravel
 spec:
   serviceName: mariadb-svc
@@ -83,14 +83,14 @@ spec:
     spec:    
       containers:
       - name: mysql
-        image: mysql:8.4
+        image: mysql:{{.Values.tagmysql}}
         ports:
         - containerPort: 3306
         env:
         - name: MYSQL_USER
           valueFrom:
             configMapKeyRef:
-              name: mysql-configmap
+              name: {{.Release.Name}}-mysql-configmap
               key: user
 
         - name: MYSQL_PASSWORD
@@ -108,7 +108,7 @@ spec:
         - name: MYSQL_DATABASE
           valueFrom:
             configMapKeyRef:
-              name: mysql-configmap
+              name: {{.Release.Name}}-mysql-configmap
               key: name
         
         volumeMounts:
