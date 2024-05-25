@@ -1,0 +1,13 @@
+{{ if .Values.phpmyadmindeploy }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: phpmyadmin-configmap
+  namespace: laravel 
+data:
+  user: usuario
+  name: mariadb
+  host: mariadb-svc.laravel.svc.cluster.local
+  port: "3306"
+
+{{ end }}

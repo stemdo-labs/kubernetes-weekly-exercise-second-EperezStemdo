@@ -61,11 +61,6 @@
   #           storage: 1Gi
 
 
-
-
-
-
-
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -84,6 +79,13 @@ spec:
       containers:
       - name: mysql
         image: mysql:{{.Values.tagmysql}}
+        resources:
+          limits:
+              memory: {{.Values.mysqlMem}}
+              cpu: {{.Values.mysqlCPU}}
+          requests:
+              memory: {{.Values.mysqlMemoRequest}}
+              cpu: {{.Values.mysqlCPURequest}}
         ports:
         - containerPort: 3306
         env:
@@ -118,6 +120,14 @@ spec:
         - name: pv-storage-mysql
           persistentVolumeClaim:
             claimName: pv-claim-mysql
+
+        # resources:
+        #   limits:
+        #       memory: {{.Values.mysqlMem}}
+        #       cpu: {{.Values.mysqlCPU}}
+        #   requests:
+        #       memory: {{.Values.mysqlMemoRequest}}
+        #       cpu: {{.Values.mysqlCPURequest}}      
 
 # apiVersion: apps/v1
 # kind: Deployment

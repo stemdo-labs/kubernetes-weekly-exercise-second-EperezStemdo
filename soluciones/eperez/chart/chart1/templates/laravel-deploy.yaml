@@ -49,6 +49,14 @@ spec:
               name: mysql-secret
               key: database_password
 
+        resources:
+          limits:
+              memory: {{.Values.laravelMem}}
+              cpu: {{.Values.laravelCPU}}
+          requests:
+              memory: {{.Values.laravelMemoRequest}}
+              cpu: {{.Values.laravelCPURequest}}     
+
       #   volumeMounts:
       #     - mountPath: "/app"
       #       name: pv-storage-laravel
@@ -58,18 +66,18 @@ spec:
       #     persistentVolumeClaim:
       #       claimName: pv-claim-laravel      
 
-        # livenessProbe:
-        #   httpGet:
-        #     path: /health
-        #     port: 8000
-        #   initialDelaySeconds: 60
-        #   periodSeconds: 20
-        #   timeoutSeconds: 5      
-
-        # readinessProbe:
-        #   tcpSocket:
-        #     port: 8000
-        #   initialDelaySeconds: 30
-        #   periodSeconds: 10
-        #   timeoutSeconds: 5  
+        livenessProbe:
+          httpGet:
+            path: /laravel
+            port: 8000
+          initialDelaySeconds: 60
+          periodSeconds: 20
+          timeoutSeconds: 5 
+        
+        readinessProbe:
+          tcpSocket:
+            port: 8000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5  
 

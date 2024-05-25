@@ -6,9 +6,21 @@ namespace: laravel
 name: mariadb
 user: usuario
 tagmysql: "8.4"
+database_password: pass1
+database_root_password: pass2
+
+mysqlMem: "800Mi" 
+mysqlCPU: "2"
+mysqlMemoRequest: "500Mi"
+mysqlCPURequest: "0.5"
 
 #Laravel
 host: mariadb-svc
 port: "3306"
 taglaravel: "11.0.8"
+
+laravelMem: "200Mi"
+laravelCPU: "2"
+laravelMemoRequest: "100Mi"
+laravelCPURequest: "0.5"
 
