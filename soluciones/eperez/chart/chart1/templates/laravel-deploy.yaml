@@ -57,14 +57,9 @@ spec:
               memory: {{.Values.laravelMemoRequest}}
               cpu: {{.Values.laravelCPURequest}}     
 
-      #   volumeMounts:
-      #     - mountPath: "/app"
-      #       name: pv-storage-laravel
-
-      # volumes:
-      #   - name: pv-storage-laravel
-      #     persistentVolumeClaim:
-      #       claimName: pv-claim-laravel      
+        volumeMounts:
+          - mountPath: "/app"
+            name: pv-storage-laravel
 
         livenessProbe:
           httpGet:
@@ -80,4 +75,8 @@ spec:
           initialDelaySeconds: 30
           periodSeconds: 10
           timeoutSeconds: 5  
-
+      
+      volumes:
+        - name: pv-storage-laravel
+          persistentVolumeClaim:
+            claimName: pv-claim-laravel

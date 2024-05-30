@@ -6,8 +6,8 @@ namespace: laravel
 name: mariadb
 user: usuario
 tagmysql: "8.4"
-database_password: pass1
-database_root_password: pass2
+database_password: kubernetes
+database_root_password: password
 
 mysqlMem: "800Mi" 
 mysqlCPU: "2"
