@@ -1,6 +1,8 @@
 #phpmyadmin
 phpmyadmindeploy: true
 
+namespace: laravel
+
 user: usuario
 name: mariadb
 host: mariadb-svc.laravel.svc.cluster.local
@@ -11,3 +13,6 @@ phpmyadminMem: "200Mi"
 phpmyadminCPU: "2"
 phpmyadminMemoRequest: "100Mi" 
 phpmyadminCPURequest: "0.5"
+
+database_password: kubernetes
+database_root_password: password

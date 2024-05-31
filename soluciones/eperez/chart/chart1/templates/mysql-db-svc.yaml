@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: mariadb-svc
-  namespace: laravel
+  namespace: {{.Values.namespace}}
   labels:
     app: db
 spec:

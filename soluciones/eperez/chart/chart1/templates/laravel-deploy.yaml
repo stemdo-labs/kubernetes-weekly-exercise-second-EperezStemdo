@@ -79,4 +79,4 @@ spec:
       volumes:
         - name: pv-storage-laravel
           persistentVolumeClaim:
-            claimName: pv-claim-laravel
+            claimName: {{.Release.Name}}-pv-claim-laravel
