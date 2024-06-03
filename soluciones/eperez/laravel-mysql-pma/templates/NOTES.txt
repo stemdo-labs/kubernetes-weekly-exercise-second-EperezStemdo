@@ -1,0 +1,13 @@
+Laravel y MySQL se han desplegado correctamente.
+
+Para ver los recursos introduzca el comando:
+
+```
+kubectl get all -n laravel
+```
+
+{{ if .Values.phpmyadmindeploy }}
+
+phpmyadmin se ha desplegado correctamente.
+
+{{ end }}
