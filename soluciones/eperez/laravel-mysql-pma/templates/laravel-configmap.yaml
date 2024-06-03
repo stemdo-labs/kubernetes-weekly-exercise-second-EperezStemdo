@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{.Release.Name}}-laravel-configmap
+  namespace: {{.Values.namespace}}
+data:
+  name: {{ .Values.name }}
+  user: {{ .Values.user }}
+  host: {{ .Values.host }}
+  port: "3306"
+
+

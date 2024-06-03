@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{.Release.Name}}-mysql-statefulset
+  namespace: {{.Values.namespace}}
+spec:
+  serviceName: mariadb-svc
+  selector:
+    matchLabels:
+      app: db
+  template:
+    metadata:
+      labels:
+        app: db
+    spec:    
+      containers:
+      - name: mysql
+        image: mysql:{{.Values.tagmysql}}
+        resources:
+          limits:
+              memory: {{.Values.mysqlMem}}
+              cpu: {{.Values.mysqlCPU}}
+          requests:
+              memory: {{.Values.mysqlMemoRequest}}
+              cpu: {{.Values.mysqlCPURequest}}
+        ports:
+        - containerPort: 3306
+        env:
+        - name: MYSQL_USER
+          valueFrom:
+            configMapKeyRef:
+              name: {{.Release.Name}}-mysql-configmap
+              key: user
+
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: database_password
+
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: database_root_password
+
+        - name: MYSQL_DATABASE
+          valueFrom:
+            configMapKeyRef:
+              name: {{.Release.Name}}-mysql-configmap
+              key: name
+        
+        volumeMounts:
+        - name: pv-storage-mysql
+          mountPath: /var/lib/mysql    
+      volumes:
+        - name: pv-storage-mysql
+          persistentVolumeClaim:
+            claimName: {{.Release.Name}}-pv-claim-mysql
+
+        # resources:
+        #   limits:
+        #       memory: {{.Values.mysqlMem}}
+        #       cpu: {{.Values.mysqlCPU}}
+        #   requests:
+        #       memory: {{.Values.mysqlMemoRequest}}
+        #       cpu: {{.Values.mysqlCPURequest}}      
+
